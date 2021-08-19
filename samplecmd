@@ -1,0 +1,29 @@
+//Run command
+module.exports.run = (client, i, sendError) => {
+    //Code
+}
+
+//Command info
+module.exports.info = {
+    name: 'commandname',
+    description: 'Command Description'
+}
+
+//Permission info
+module.exports.perms = {
+    user: {
+        requirePerm: false,
+        permType: '',
+        perm: ''
+    },
+    bot: {
+        requirePerm: false,
+        perms: []
+    }
+}
+
+//Cooldown info
+module.exports.cooldown = {
+    enabled: false,
+    length: 0
+}
