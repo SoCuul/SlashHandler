@@ -66,5 +66,11 @@ fs.readdir('./ownercommands/', async (_err, files) => {
 });
 
 
-//Login
-client.login(process.env.TOKEN);
+//Client Login
+try{
+    client.login(process.env.TOKEN)
+}
+catch(error){
+    console.log('[Error] Could not login. Please make sure the token is valid.')
+    process.exit(1)
+}
