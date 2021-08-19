@@ -1,0 +1,5 @@
+.DS_Store
+config.json
+.env
+/commands
+!/commands/samplecmd

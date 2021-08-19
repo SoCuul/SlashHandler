@@ -1,0 +1,11 @@
+{
+    "presence": {
+        "type": "",
+        "activity": ""
+    },
+    
+    "owner": {
+        "ids": [],
+        "prefix": ""
+    }
+}

@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "enmap": "^5.8.7",
+    "ms": "^2.1.3"
+  },
+  "name": "handler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SoCuul",
+  "license": "ISC",
+  "description": ""
+}
