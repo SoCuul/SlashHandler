@@ -25,6 +25,7 @@ if(fs.existsSync('./modules.js')){
 }
 
 //Debug settings
+if(client.config.debug.enabled && client.config.debug.guild){
     client.debugMode = true
     client.debugGuild = client.config.debug.guild
 }
