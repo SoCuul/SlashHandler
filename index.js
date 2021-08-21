@@ -12,16 +12,22 @@ const client = new Discord.Client({
 
 require('dotenv').config();
 
-//Debug settings
-client.debugMode = true
-client.debugGuild = '749873692481290290'
-
 //Cooldowns
 client.cooldowns = new Enmap()
 
 //Attach to client
 client.config = require('./config.json');
 client.wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+//Load modules
+if(fs.existsSync('./modules.js')){
+    require('./modules.js')(client)
+}
+
+//Debug settings
+    client.debugMode = true
+    client.debugGuild = client.config.debug.guild
+}
 
 //Load events
 fs.readdir('./events/', (_err, files) => {

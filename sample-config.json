@@ -7,5 +7,10 @@
     "owner": {
         "ids": [],
         "prefix": ""
+    },
+
+    "debug": {
+        "enabled": false,
+        "guild": ""
     }
 }

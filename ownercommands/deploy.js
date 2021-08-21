@@ -1,6 +1,5 @@
 module.exports.run = async (client, message, args, sendError) => {
     //Deploy commands
-    console.log('')
     console.log(client.debugMode ? `Deploying commands to: ${client.debugGuild}...` : 'Deploying global commands...')
     let msg = await message.reply(client.debugMode ? `Deploying commands to: ${client.debugGuild}...` : 'Deploying global commands...')
 
