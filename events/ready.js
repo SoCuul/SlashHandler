@@ -15,6 +15,43 @@ module.exports = async (client) => {
 
     console.log(`Deployed ${client.commands.size} commands!`)
 
-    //Send logged in messaged
-    console.log(`Bot is online.`);
+    //Online message
+    console.log(`${client.user.tag} is online.`)
+    console.log(`${client.guilds.cache.size} servers`)
+    console.log(`${client.guilds.cache.reduce((a, c) => a + c.memberCount, 0)} users`)
+
+    //Set first status
+    try{
+        client.user.setPresence({
+            activities: [
+                {
+                    name: client.config.presence.activity,
+                    type: client.config.presence.type
+                }
+            ]
+        })
+    }
+    catch(error){
+        console.log('[Status Error] Could not set status')
+    }
+
+    //Set status each hour
+    while (true) {
+        await client.wait(3600000)
+
+        //Set status
+        try{
+            client.user.setPresence({
+                activities: [
+                    {
+                        name: client.config.presence.activity,
+                        type: client.config.presence.type
+                    }
+                ]
+            })
+        }
+        catch(error){
+            console.log('[Status Error] Could not set status')
+        }
+    }
 };

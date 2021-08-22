@@ -128,26 +128,57 @@ module.exports = async (client, i) => {
     }
 
     //Cooldowns
-    client.cooldowns.ensure(i.user.id, [])
-    if(cmd.cooldown && cmd.cooldown.enabled && cmd.cooldown.length && Number(cmd.cooldown.length) && client.cooldowns.includes(i.user.id, cmd.info.name)){
-        const embed = new MessageEmbed()
-        .setColor('RED')
-        .setTitle('Command Cooldown')
-        .setDescription(`You can only run this command every ${ms(cmd.cooldown.length, { long: true })}`)
-        .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
-        return i.reply({
-            embeds: [embed]
-        })
-    }
-    else{
-        //Add to cooldown db
-        client.cooldowns.push(i.user.id, cmd.info.name)
+    if(cmd.cooldown && cmd.cooldown.enabled && cmd.cooldown.type && cmd.cooldown.length && Number(cmd.cooldown.length)){
+        if(cmd.cooldown.type === 'user'){
+            client.cooldowns.ensure(i.user.id, [], i.guild.id)
 
-        //Wait for cooldown to finish
-        setTimeout(function(){
-            //Remove from cooldown db
-            client.cooldowns.remove(i.user.id, cmd.info.name)
-        }, cmd.cooldown.length);
+            //Check for valid cooldown
+            if(client.cooldowns.includes(i.user.id, cmd.info.name, i.guild.id)){
+                const embed = new MessageEmbed()
+                .setColor('RED')
+                .setTitle('Command Cooldown')
+                .setDescription(`You can only run this command every ${ms(cmd.cooldown.length, { long: true })}.`)
+                .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+                return i.reply({
+                    embeds: [embed]
+                })
+            }
+            else{
+                //Add to cooldown db
+                client.cooldowns.push(i.user.id, cmd.info.name, i.guild.id)
+
+                //Wait for cooldown to finish
+                client.wait(cmd.cooldown.length)
+
+                //Remove from cooldown db
+                .then(() => client.cooldowns.remove(i.user.id, cmd.info.name, i.guild.id))
+            }
+        }
+        else if(cmd.cooldown.type === 'guild'){
+            client.cooldowns.ensure(i.guild.id, [])
+
+            //Check for valid cooldown
+            if(client.cooldowns.includes(i.guild.id, cmd.info.name)){
+                const embed = new MessageEmbed()
+                .setColor('RED')
+                .setTitle('Command Cooldown')
+                .setDescription(`This command can only be run every ${ms(cmd.cooldown.length, { long: true })} in this server.`)
+                .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+                return i.reply({
+                    embeds: [embed]
+                })
+            }
+            else{
+                //Add to cooldown db
+                client.cooldowns.push(i.guild.id, cmd.info.name)
+
+                //Wait for cooldown to finish
+                client.wait(cmd.cooldown.length)
+
+                //Remove from cooldown db
+                .then(() => client.cooldowns.remove(i.guild.id, cmd.info.name))
+            }
+        }
     }
   
     //Run the command
@@ -162,7 +193,7 @@ module.exports = async (client, i) => {
         .setDescription('There was an error running the command.')
         .addField('Error', truncateString(error.toString(), 1021))
         .setTimestamp()
-        i.reply({
+        i.channel.send({
             embeds: [embed]
         })
     }
