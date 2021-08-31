@@ -8,10 +8,10 @@ function truncateString(str, num) {
 
 module.exports = async (client, message) => {
     //Restrict non-owners
-    if(!client.config.owner.ids.includes(message.author.id)) return
+    if (!client.config.owner.ids.includes(message.author.id)) return
 
     //Check for valid command instance
-    if(!message.guild || message.author.bot) return
+    if (!message.guild || message.author.bot) return
 
     //Ignore messages without prefixes
     let prefix = client.config.owner.prefix
@@ -38,13 +38,13 @@ module.exports = async (client, message) => {
     const cmd = client.ownerCommands.get(command)
   
     //If that command doesn't exist, return
-    if(!cmd) return
+    if (!cmd) return
 
     //Run the command
-    try{
+    try {
         await cmd.run(client, message, args, sendError)
     }
-    catch(error){
+    catch (error) {
         //Send embed
         const embed = new MessageEmbed()
         .setColor('RED')

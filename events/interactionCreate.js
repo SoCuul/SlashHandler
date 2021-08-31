@@ -9,10 +9,10 @@ function truncateString(str, num) {
 
 module.exports = async (client, i) => {
     //Filter out non-commands
-    if(!i.isCommand()) return
+    if (!i.isCommand()) return
 
     //Respond to non-guild commands
-    if(!i.inGuild()) return i.reply('You can only use commands in servers.')
+    if (!i.inGuild()) return i.reply('You can only use commands in servers.')
 
     //Error Messages
     function sendError(input) {
@@ -30,15 +30,15 @@ module.exports = async (client, i) => {
     const cmd = client.commands.get(i.commandName)
   
     //If that command doesn't exist, return error
-    if(!cmd) return i.reply('That command doesn\'t exist!\nTry running the command again later.')
+    if (!cmd) return i.reply('That command doesn\'t exist!\nTry running the command again later.')
 
     //Permissions
-    if(cmd.perms){
-        if(cmd.perms.user && cmd.perms.user.requirePerm && cmd.perms.user.permType && cmd.perms.user.perm){
+    if (cmd.perms) {
+        if (cmd.perms.user && cmd.perms.user.requirePerm && cmd.perms.user.permType && cmd.perms.user.perm) {
             //Check for permission type
-            switch(cmd.perms.user.permType.toLowerCase()) {
+            switch (cmd.perms.user.permType.toLowerCase()) {
                 case 'rolename':
-                    if(!i.member.roles.cache.some(role => role.name === cmd.perms.user.perm.toString())){
+                    if (!i.member.roles.cache.some(role => role.name === cmd.perms.user.perm.toString())) {
                         const embed = new MessageEmbed()
                         .setColor('RED')
                         .setTitle('Missing Permission')
@@ -49,10 +49,10 @@ module.exports = async (client, i) => {
                             ephemeral: true
                         })
                     }
-                    break;
+                    break
 
                 case 'roleid':
-                    if(!i.member.roles.cache.some(role => role.id === cmd.perms.user.perm.toString())){
+                    if (!i.member.roles.cache.some(role => role.id === cmd.perms.user.perm.toString())) {
                         const embed = new MessageEmbed()
                         .setColor('RED')
                         .setTitle('Missing Permission')
@@ -63,10 +63,10 @@ module.exports = async (client, i) => {
                             ephemeral: true
                         })
                     }
-                    break;
+                    break
 
                 case 'discord':
-                    if(!i.member.permissionsIn(i.channel).has(cmd.perms.user.perm.toString())){
+                    if (!i.member.permissionsIn(i.channel).has(cmd.perms.user.perm.toString())) {
                         const embed = new MessageEmbed()
                         .setColor('RED')
                         .setTitle('Missing Permission')
@@ -77,11 +77,11 @@ module.exports = async (client, i) => {
                             ephemeral: true
                         })
                     }
-                    break;
+                    break
 
                 case 'user':
-                    if(i.user.id !== cmd.perms.user.perm.toString()){
-                        try{
+                    if (i.user.id !== cmd.perms.user.perm.toString()) {
+                        try {
                             let user = await client.users.fetch(cmd.perms.user.perm.toString())
 
                             const embed = new MessageEmbed()
@@ -94,7 +94,7 @@ module.exports = async (client, i) => {
                                 ephemeral: true
                             })
                         }
-                        catch(e){
+                        catch (e) {
                             const embed = new MessageEmbed()
                             .setColor('RED')
                             .setTitle('Missing Permission')
@@ -106,10 +106,10 @@ module.exports = async (client, i) => {
                             })
                         }
                     }
-                    break;
+                    break
 
                 default:
-                    break;
+                    break
             } 
         }
         else if(cmd.perms.bot && cmd.perms.bot.requirePerm && cmd.perms.bot.perms && cmd.perms.bot.perms.length){
@@ -128,8 +128,8 @@ module.exports = async (client, i) => {
     }
 
     //Cooldowns
-    if(cmd.cooldown && cmd.cooldown.enabled && cmd.cooldown.type && cmd.cooldown.length && Number(cmd.cooldown.length)){
-        if(cmd.cooldown.type === 'user'){
+    if (cmd.cooldown && cmd.cooldown.enabled && cmd.cooldown.type && cmd.cooldown.length && Number(cmd.cooldown.length)){ 
+        if (cmd.cooldown.type === 'user') {
             client.cooldowns.ensure(i.user.id, [], i.guild.id)
 
             //Check for valid cooldown
@@ -154,7 +154,7 @@ module.exports = async (client, i) => {
                 .then(() => client.cooldowns.remove(i.user.id, cmd.info.name, i.guild.id))
             }
         }
-        else if(cmd.cooldown.type === 'guild'){
+        else if(cmd.cooldown.type === 'guild') {
             client.cooldowns.ensure(i.guild.id, [])
 
             //Check for valid cooldown
@@ -182,10 +182,10 @@ module.exports = async (client, i) => {
     }
   
     //Run the command
-    try{
+    try {
         await cmd.run(client, i, sendError)
     }
-    catch(error){
+    catch (error) {
         //Send embed
         const embed = new MessageEmbed()
         .setColor('RED')

@@ -8,7 +8,7 @@ module.exports.run = async (client, message, args, sendError) => {
 
     if (!command) return sendError('Please provide a valid command to reload.', 'reload <command>')
 
-    try{
+    try {
         let cmdsPath = path.join(path.dirname(require.main.filename) + '/commands/')
 
         delete require.cache[require.resolve(`${cmdsPath}${commandName}.js`)];
@@ -18,7 +18,7 @@ module.exports.run = async (client, message, args, sendError) => {
 
         message.channel.send(`✅ \`${commandName}\` reloaded successfully`);
     }
-    catch(error){
+    catch (error) {
         message.channel.send(`❌ There was an error reloading \`${commandName}\``);
     }
 }

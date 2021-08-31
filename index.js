@@ -18,6 +18,47 @@ client.cooldowns = new Enmap()
 //Attach to client
 client.config = require('./config.json');
 client.wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+client.random = arr => arr[Math.floor(Math.random() * arr.length)]
+
+//Check config configuration
+if(client.config){
+    //Presence
+    if (typeof client.config.presence !== 'object' || Array.isArray(client.config.presence)) {
+        console.log('[Config Error] "presence" must be an object')
+        process.exit(0)
+    }
+    //Presence: Activities
+    if (typeof client.config.presence.activities !== 'object' || !Array.isArray(client.config.presence.activities)) {
+        console.log('[Config Error] "presence.activities" must be an array')
+        process.exit(0)
+    }
+    //Presence: Switch Activity Interval
+    if (typeof client.config.presence.switchActivityInterval !== 'number') {
+        console.log('[Config Error] "presence.switchActivityInterval" must be an number')
+        process.exit(0)
+    }
+    //Presence: Status
+    if (typeof client.config.presence.status !== 'string') {
+        console.log('[Config Error] "presence.status" must be an string')
+        process.exit(0)
+    }
+
+    //Owner
+    if (typeof client.config.owner !== 'object' || Array.isArray(client.config.owner)) {
+        console.log('[Config Error] "owner" must be an object')
+        process.exit(0)
+    }
+    //Owner: IDs
+    if (typeof client.config.owner.ids !== 'object' || !Array.isArray(client.config.owner.ids)) {
+        console.log('[Config Error] "owner.ids" must be an array')
+        process.exit(0)
+    }
+    //Owner: Prefix
+    if (typeof client.config.owner.prefix !== 'string') {
+        console.log('[Config Error] "owner.prefix" must be an string')
+        process.exit(0)
+    }
+}
 
 //Load modules
 if(fs.existsSync('./modules.js')){
@@ -25,7 +66,7 @@ if(fs.existsSync('./modules.js')){
 }
 
 //Debug settings
-if(client.config.debug.enabled && client.config.debug.guild){
+if(client.config.debug.enabled && client.config.debug.guild && Number(client.config.debug.guild)){
     client.debugMode = true
     client.debugGuild = client.config.debug.guild
 }

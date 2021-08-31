@@ -4,12 +4,12 @@ module.exports = async (client) => {
     console.log(client.debugMode ? `Deploying commands to: ${client.debugGuild}...` : 'Deploying global commands...')
 
     //Deploy debug guild commands
-    if(client.debugMode){
+    if (client.debugMode) {
         let guild = await client.guilds.fetch(client.debugGuild)
         await guild.commands.set(client.commands.map(command => command.info))
     }
     //Deploy global commands
-    else{
+    else {
         await client.application?.commands.set(client.commands.map(command => command.info))
     }
 
@@ -21,36 +21,28 @@ module.exports = async (client) => {
     console.log(`${client.guilds.cache.reduce((a, c) => a + c.memberCount, 0)} users`)
 
     //Set first status
-    try{
+    try {
         client.user.setPresence({
-            activities: [
-                {
-                    name: client.config.presence.activity,
-                    type: client.config.presence.type
-                }
-            ]
+            activities: [client.random(client.config.presence.activities)],
+            status: client.config.presence.status
         })
     }
-    catch(error){
+    catch (error) {
         console.log('[Status Error] Could not set status')
     }
 
     //Set status each hour
     while (true) {
-        await client.wait(3600000)
+        await client.wait(client.config.presence.switchActivityInterval)
 
         //Set status
-        try{
+        try {
             client.user.setPresence({
-                activities: [
-                    {
-                        name: client.config.presence.activity,
-                        type: client.config.presence.type
-                    }
-                ]
+                activities: [client.random(client.config.presence.activities)],
+                status: client.config.presence.status
             })
         }
-        catch(error){
+        catch (error) {
             console.log('[Status Error] Could not set status')
         }
     }

@@ -1,7 +1,14 @@
 {
     "presence": {
-        "type": "",
-        "activity": ""
+        "activities": [
+            {
+                "name": "with discord.js",
+                "type": "PLAYING"
+            }
+        ],
+        "switchActivityInterval": 30000,
+
+        "status": "online"
     },
     
     "owner": {
