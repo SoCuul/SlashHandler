@@ -9,7 +9,7 @@ function truncateString(str, num) {
 
 module.exports = async (client, i) => {
     //Filter out non-commands
-    if (!i.isCommand()) return
+    if (!i.isCommand() && !i.isContextMenu()) return
 
     //Respond to non-guild commands
     if (!i.inGuild()) return i.reply('You can only use commands in servers.')
@@ -140,7 +140,8 @@ module.exports = async (client, i) => {
                 .setDescription(`You can only run this command every ${ms(cmd.cooldown.length, { long: true })}.`)
                 .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
                 return i.reply({
-                    embeds: [embed]
+                    embeds: [embed],
+                    ephemeral: true
                 })
             }
             else{
@@ -165,7 +166,8 @@ module.exports = async (client, i) => {
                 .setDescription(`This command can only be run every ${ms(cmd.cooldown.length, { long: true })} in this server.`)
                 .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
                 return i.reply({
-                    embeds: [embed]
+                    embeds: [embed],
+                    ephemeral: true
                 })
             }
             else{
