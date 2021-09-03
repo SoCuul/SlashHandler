@@ -15,16 +15,7 @@ module.exports = async (client, i) => {
     if (!i.inGuild()) return i.reply('You can only use commands in servers.')
 
     //Error Messages
-    function sendError(input) {
-        const embed = new MessageEmbed()
-        .setColor('RED')
-        .setTitle('Error')
-        .setDescription(input)
-        .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
-        i.reply({
-            embeds: [embed]
-        })
-    }
+    sendError = client.sendError
   
     //Grab the command data from the client.commands map
     const cmd = client.commands.get(i.commandName)

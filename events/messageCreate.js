@@ -22,16 +22,15 @@ module.exports = async (client, message) => {
     const command = args.shift().toLowerCase();
 
     //Error Messages
-    function sendError(input, cmd) {
-        const embed = new MessageEmbed()
+    function sendError (input, cmd) {
+        if(!input || !cmd) return
+
+        return new MessageEmbed()
         .setColor('RED')
         .setTitle('Error')
         .setDescription(input)
         .addField('Usage', `\`${prefix}${cmd}\``)
         .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
-        message.reply({
-            embeds: [embed]
-        })
     }
 
     //Grab the command data from the client.ownerCommands map

@@ -19,6 +19,15 @@ client.cooldowns = new Enmap()
 client.config = require('./config.json');
 client.wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 client.random = arr => arr[Math.floor(Math.random() * arr.length)]
+client.sendError = function (input) {
+    if(!input) return
+    
+    return new Discord.MessageEmbed()
+    .setColor('RED')
+    .setTitle('Error')
+    .setDescription(input)
+    .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+}
 
 //Check config configuration
 if(client.config){
