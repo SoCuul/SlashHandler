@@ -30,7 +30,7 @@ module.exports = async (client, message) => {
         .setTitle('Error')
         .setDescription(input)
         .addField('Usage', `\`${prefix}${cmd}\``)
-        .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+        .setFooter(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
     }
 
     //Grab the command data from the client.ownerCommands map

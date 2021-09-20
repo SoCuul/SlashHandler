@@ -26,7 +26,7 @@ client.sendError = function (input) {
     .setColor('RED')
     .setTitle('Error')
     .setDescription(input)
-    .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+    .setFooter(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
 }
 
 //Check config configuration

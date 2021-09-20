@@ -34,7 +34,7 @@ module.exports = async (client, i) => {
                         .setColor('RED')
                         .setTitle('Missing Permission')
                         .setDescription(`You must have the **${truncateString(cmd.perms.user.perm, 100)}** role to use this command.`)
-                        .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+                        .setFooter(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
                         return i.reply({
                             embeds: [embed],
                             ephemeral: true
@@ -48,7 +48,7 @@ module.exports = async (client, i) => {
                         .setColor('RED')
                         .setTitle('Missing Permission')
                         .setDescription(`You must have the role with the id of **${truncateString(cmd.perms.user.perm, 100)}** to use this command.`)
-                        .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+                        .setFooter(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
                         return i.reply({
                             embeds: [embed],
                             ephemeral: true
@@ -62,7 +62,7 @@ module.exports = async (client, i) => {
                         .setColor('RED')
                         .setTitle('Missing Permission')
                         .setDescription(`You must have the **${truncateString(cmd.perms.user.perm, 100)}** permission to use this command.`)
-                        .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+                        .setFooter(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
                         return i.reply({
                             embeds: [embed],
                             ephemeral: true
@@ -79,7 +79,7 @@ module.exports = async (client, i) => {
                             .setColor('RED')
                             .setTitle('Missing Permission')
                             .setDescription(`Only **${user.tag}** can use this command.`)
-                            .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+                            .setFooter(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
                             return i.reply({
                                 embeds: [embed],
                                 ephemeral: true
@@ -90,7 +90,7 @@ module.exports = async (client, i) => {
                             .setColor('RED')
                             .setTitle('Missing Permission')
                             .setDescription(`Only the user with an id of **${truncateString(cmd.perms.user.perm, 100)}** can use this command.`)
-                            .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+                            .setFooter(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
                             return i.reply({
                                 embeds: [embed],
                                 ephemeral: true
@@ -109,7 +109,7 @@ module.exports = async (client, i) => {
                 .setColor('RED')
                 .setTitle('Missing Permission')
                 .setDescription(`I\'m missing one of the following permissions:\n\`${truncateString(cmd.perms.bot.perms.join(', '), 200)}\`\nPlease ask a server admin to make sure I have these permissions.`)
-                .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+                .setFooter(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
                 return i.reply({
                     embeds: [embed],
                     ephemeral: true
@@ -129,7 +129,7 @@ module.exports = async (client, i) => {
                 .setColor('RED')
                 .setTitle('Command Cooldown')
                 .setDescription(`You can only run this command every ${ms(cmd.cooldown.length, { long: true })}.`)
-                .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+                .setFooter(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
                 return i.reply({
                     embeds: [embed],
                     ephemeral: true
@@ -155,7 +155,7 @@ module.exports = async (client, i) => {
                 .setColor('RED')
                 .setTitle('Command Cooldown')
                 .setDescription(`This command can only be run every ${ms(cmd.cooldown.length, { long: true })} in this server.`)
-                .setFooter(client.user.username, client.user.avatarURL({ dynamic: true }))
+                .setFooter(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
                 return i.reply({
                     embeds: [embed],
                     ephemeral: true
