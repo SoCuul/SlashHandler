@@ -1,26 +1,18 @@
 {
   "name": "slashhandler",
-  "version": "2.0.0",
-  "description": "A discord.js slash command framework.",
-  "type": "module",
+  "description": "",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node .",
-    "deploy": "node deploy.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "discord",
-    "discord-bots",
-    "discord-js"
-  ],
   "author": "SoCuul",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/rest": "^0.4.1",
-    "chalk": "^5.0.1",
-    "discord-api-types": "^0.33.2",
-    "discord.js": "^13.7.0",
-    "dotenv": "^16.0.1",
-    "recursive-readdir": "^2.2.2"
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "enmap": "^5.8.7",
+    "ms": "^2.1.3",
+    "path": "^0.12.7"
   }
 }
