@@ -1,6 +1,0 @@
-/node_modules
-
-# Personal files
-config.js
-.env
-/commands/*
