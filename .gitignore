@@ -1,6 +1,6 @@
-.DS_Store
-config.json
-.env
-modules.js
 /node_modules
-/commands
+
+# Personal files
+config.js
+.env
+/commands/*

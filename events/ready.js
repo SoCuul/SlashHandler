@@ -1,49 +1,46 @@
-module.exports = async (client) => {
-    //Deploy commands
-    console.log('')
-    console.log(client.debugMode ? `Deploying commands to: ${client.debugGuild}...` : 'Deploying global commands...')
+//Modules
+import * as log from '../utils/log.js'
 
-    //Deploy debug guild commands
-    if (client.debugMode) {
-        let guild = await client.guilds.fetch(client.debugGuild)
-        await guild.commands.set(client.commands.map(command => command.info))
-    }
-    //Deploy global commands
-    else {
-        await client.application?.commands.set(client.commands.map(command => command.info))
-    }
+import { random, wait } from '../utils/misc.js'
 
-    console.log(`Deployed ${client.commands.size} commands!`)
+export const name = 'ready'
 
+export const execute = async (client) => {
     //Online message
-    console.log(`${client.user.tag} is online.`)
-    console.log(`${client.guilds.cache.size} servers`)
-    console.log(`${client.guilds.cache.reduce((a, c) => a + c.memberCount, 0)} users`)
+    console.log(log.success(`${client.user.tag} is online.`))
+    console.log(log.info(`${client.guilds.cache.size} servers`))
+    console.log(log.info(`${client.guilds.cache.reduce((a, c) => a + c.memberCount, 0)} users`))
 
     //Set first status
     try {
-        client.user.setPresence({
-            activities: [client.random(client.config.presence.activities)],
-            status: client.config.presence.status
+        await client.user.setPresence({
+            activities: [
+                random(client.config.presences(client).activities)
+            ],
+            status: client.config.presences.status
         })
     }
     catch (error) {
-        console.log('[Status Error] Could not set status')
+        console.log(log.error('Could not set status.'))
+        console.log(error)
     }
 
-    //Set status each hour
+    //Set status on interval
     while (true) {
-        await client.wait(client.config.presence.switchActivityInterval)
+        await wait(client.config.presences.switchActivityInterval)
 
         //Set status
         try {
-            client.user.setPresence({
-                activities: [client.random(client.config.presence.activities)],
-                status: client.config.presence.status
+            await client.user.setPresence({
+                activities: [
+                    random(client.config.presences(client).activities)
+                ],
+                status: client.config.presences.status
             })
         }
         catch (error) {
-            console.log('[Status Error] Could not set status')
+            console.log(log.error('Could not set status.'))
+            console.log(error)
         }
     }
-};
+}
