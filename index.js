@@ -41,5 +41,7 @@ try {
 }
 catch (error) {
     console.log(log.error('Could not login. Please make sure the token is valid.'))
+    console.log(error)
+    
     process.exit(1)
 }
