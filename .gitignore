@@ -2,6 +2,6 @@
 .DS_Store
 
 # Personal Files
-.env
-config.js
+/.env
+/config.js
 /commands/*

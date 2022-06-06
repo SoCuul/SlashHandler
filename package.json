@@ -1,6 +1,6 @@
 {
   "name": "slashhandler",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "A discord.js slash command framework.",
   "type": "module",
   "main": "index.js",
