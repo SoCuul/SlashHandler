@@ -21,13 +21,17 @@ client.config = config
 
 //Load events
 import { loadEvents } from './utils/loadFiles.js'
-const eventsInfo = await recursive('./events/')
+
+let eventsInfo = await recursive('./events/')
+eventsInfo?.filter(path => path.endsWith('.js'))
 
 await loadEvents(eventsInfo, client, true)
 
 //Load commands
 client.commands = new Discord.Collection()
-const commandsInfo = await recursive('./commands/')
+
+let commandsInfo = await recursive('./commands/')
+commandsInfo?.filter(path => path.endsWith('.js'))
 
 import { loadCommands } from './utils/loadFiles.js'
 

@@ -5,6 +5,8 @@ import { random, wait } from '../utils/misc.js'
 
 export const name = 'ready'
 
+export const once = true
+
 export const execute = async (client) => {
     //Online message
     console.log(log.success(`${client.user.tag} is online.`))
