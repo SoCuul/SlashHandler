@@ -17,6 +17,6 @@ To deploy the slash commands to Discord's servers, run the `deploy.js` script. Y
 Finally, you can run the index.js to start the main bot process!
 
 ## Support
-If you need help using this framework, you can join my [discord server](https://discord.com/invite/cGW5vdNV3t).
+If you need help using this framework, you can join my [discord server](https://discord.com/invite/AY7WHt4Nrw).
 
 Note: Support will not be provided for general-purpose JavaScript/Discord.JS questions.
